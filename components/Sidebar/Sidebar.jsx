@@ -14,9 +14,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import ExpandableSidebarItem from './ExpandableSidebarItem';
+import RoomSidebarItem from './RoomSidebarItem';
 const useStyles = makeStyles((theme) => ({
     drawer: {
         width: SIDEBAR_WIDTH,
@@ -40,9 +39,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export const SIDEBAR_WIDTH = 240;
-export default function Sidebar({ isOpen, handleSidebarClose }) {
+export default function Sidebar({ isOpen, handleSidebarClose, roomsList }) {
     const classes = useStyles();
     const theme = useTheme();
+    let roomsJSX = (
+        roomsList.map((room) => 
+            <RoomSidebarItem name={room.name}></RoomSidebarItem>
+        )
+    );
     return (
         <>
             <Drawer
@@ -61,21 +65,14 @@ export default function Sidebar({ isOpen, handleSidebarClose }) {
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button >
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    {roomsJSX}
                 </List>
             </Drawer>
         </>

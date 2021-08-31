@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import {SIDEBAR_WIDTH} from "./Sidebar"
+import {SIDEBAR_WIDTH} from "./Sidebar/Sidebar"
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    hide: {
+      display: 'none',
+    },
 }));
 
 export default function DashboardLayout({ appbarTitle, isSidebarOpen, handleSidebarOpen }) {
@@ -40,7 +46,12 @@ export default function DashboardLayout({ appbarTitle, isSidebarOpen, handleSide
                 [classes.appBarShift]: isSidebarOpen,
             })}>
             <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleSidebarOpen} className={clsx(classes.menuButton, isSidebarOpen && classes.hide)}>
+                <IconButton 
+                    edge="start" 
+                    color="inherit" 
+                    aria-label="menu" 
+                    onClick={handleSidebarOpen} 
+                    className={clsx(classes.menuButton, isSidebarOpen && classes.hide)}>
                     <MenuIcon />
                 </IconButton>
                 <Logo />
